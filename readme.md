@@ -6,5 +6,6 @@
   data-max="<?=$size_range['maxlength']?>"
   data-min-value="<?=$_GET["l"]["min"]?>"
   data-max-value="<?=$_GET["l"]["max"]?>"
-  data-unit='mm'>
+  data-unit='mm'
+  data-title="Length">
 </div>
