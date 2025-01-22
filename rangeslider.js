@@ -8,6 +8,7 @@ class RangeSlider {
     const options = container.dataset;
     
     this.options = {
+      title: options.title ? `<div class="range-slider-title">${options.title}</div>` : '',
       name: options.rangeName || '',
       min: parseInt(options.min || 0),
       max: parseInt(options.max || 100),
@@ -24,6 +25,7 @@ class RangeSlider {
     // Создаем HTML разметку для слайдера
     const options = this.options;
     this.container.innerHTML = `
+        ${options.title}
         <div class="r-current-values">
           <label>
             <span>от</span>
