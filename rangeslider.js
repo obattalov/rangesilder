@@ -9,41 +9,41 @@ class RangeSlider {
     
     this.options = {
       name: options.rangeName || '',
-      min: options.min || 0,
-      max: options.max || 100,
-      minValue: options.minValue || options.min || 0,
-      maxValue: options.maxValue || options.max || 100,
+      min: parseInt(options.min || 0),
+      max: parseInt(options.max || 100),
+      minValue: parseInt(options.minValue || options.min || 0),
+      maxValue: parseInt(options.maxValue || options.max || 100),
       colors: options.colors || {bgTrackTransparent: '#C3C3C333', bgTrackFilled: '#F1984C80'},
       unit: options.unit || 'ед.',
     };
-
     this.render();
     this.attachEvents();
   }
 
   render() {
     // Создаем HTML разметку для слайдера
+    const options = this.options;
     this.container.innerHTML = `
         <div class="r-current-values">
           <label>
             <span>от</span>
-            <input type="number" class="input-low" value="${this.minValue}" min="${this.min}" max="${this.max}">
-            <span>${this.options.unit}</span>
+            <input type="number" class="input-low" value="${options.minValue}" min="${options.min}" max="${options.max}">
+            <span>${options.unit}</span>
           </label>
           <label>
             <span>до</span>
-            <input type="number" class="input-high" value="${this.maxValue}" min="${this.min}" max="${this.max}">
-            <span>${this.options.unit}</span>
+            <input type="number" class="input-high" value="${options.maxValue}" min="${options.min}" max="${options.max}">
+            <span>${options.unit}</span>
           </label>
         </div>
       <div class="range-slider">
-        <input type="range" ${this.options.name ? ' name="' + this.options.name + '[min]'+ '"' : ''} class="range-min range-input" min="${this.options.min}" max="${this.options.max}" value="${this.options.minValue}" />
-        <input type="range" ${this.options.name ? ' name="' + this.options.name + '[max]'+ '"' : ''} class="range-max range-input" min="${this.options.min}" max="${this.options.max}" value="${this.options.maxValue}" />
+        <input type="range" ${options.name ? ' name="' + options.name + '[min]'+ '"' : ''} class="range-min range-input" min="${options.min}" max="${options.max}" value="${options.minValue}" />
+        <input type="range" ${options.name ? ' name="' + options.name + '[max]'+ '"' : ''} class="range-max range-input" min="${options.min}" max="${options.max}" value="${options.maxValue}" />
         <div class="range-track"></div>
       </div>
         <div class="r-labels">
-          <span>Min: ${this.options.min}</span>
-          <span>Max: ${this.options.max}</span>
+          <span>Min: ${options.min}</span>
+          <span>Max: ${options.max}</span>
         </div>
     `;
 
@@ -65,6 +65,7 @@ class RangeSlider {
       if (low > high) low = high;
       if (low < this.options.min) low = this.options.min;
       if (high < low) high = low;
+      console.log([high, this.options]);
       if (high > this.options.max) high = this.options.max;
       if (this.timeout) clearTimeout(this.timeout);
       this.timeout = setTimeout( () => {
